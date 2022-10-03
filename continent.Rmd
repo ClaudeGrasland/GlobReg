@@ -1,0 +1,121 @@
+---
+title: "Continents"
+output: html_notebook
+---
+
+```{r}
+library(rnaturalearth)
+library(rnaturalearthdata)
+library(sf)
+library(dplyr)
+library(mapsf)
+```
+## Data
+
+```{r}
+world110<-st_as_sf(coastline110)
+world50<-st_as_sf(coastline50)
+countries110<-st_as_sf(countries110)
+countries50<-st_as_sf(countries50)
+
+
+```
+
+## figure Indo_scale 1
+
+```{r}
+indo110<-countries110 %>% filter(sov_a3=="IDN")
+indo50<-countries50 %>% filter(sov_a3=="IDN")
+# Visual
+par(mfrow=c(2,1))
+mf_theme(bg="white",fg = "black",mar = c(0,0,0,0),inner = T,tab = T,pos="right")
+mf_map(indo110, type="base")
+mf_layout(title = "Indonesia scales 1:110m",credits = "Source : Natural Earth",frame = T,scale = F,arrow=F)
+mf_theme(bg="white",fg = "black",mar = c(0,0,0,0),inner = T,tab = T,pos="right")
+mf_map(indo50, type="base")
+mf_layout(title = "Indonesia scales 1:50m",credits = "Source : Natural Earth", frame=T,scale=F, arrow=F)
+#Pdf
+pdf("fig/Indo_coast.pdf")
+par(mfrow=c(2,1))
+mf_theme(bg="white",fg = "black",mar = c(0,0,0,0),inner = T,tab = T,pos="right")
+mf_map(indo110, type="base")
+mf_layout(title = "Indonesia scales 1:110m",credits = "Source : Natural Earth",frame = T,scale = F,arrow=F)
+mf_theme(bg="white",fg = "black",mar = c(0,0,0,0),inner = T,tab = T,pos="right")
+mf_map(indo50, type="base")
+mf_layout(title = "Indonesia scales 1:50m",credits = "Source : Natural Earth", frame=T,scale=F, arrow=F)
+dev.off()
+```
+
+## Figure indo_scale 2
+
+```{r}
+grid<-st_make_grid(indo50,cellsize = 2) %>% st_as_sf()
+w<-as.numeric(st_intersects(grid,indo50))
+grid200<-grid %>% filter(w>0) %>% st_as_sfc() %>% st_as_sf
+
+grid<-st_make_grid(indo50,cellsize = 1) %>% st_as_sf()
+w<-as.numeric(st_intersects(grid,indo50))
+grid100<-grid %>% filter(w>0) %>% st_as_sfc() %>% st_as_sf
+
+grid<-st_make_grid(indo50,cellsize = 0.5) %>% st_as_sf()
+w<-as.numeric(st_intersects(grid,indo50))
+grid050<-grid %>% filter(w>0) %>% st_as_sfc() %>% st_as_sf
+
+grid<-st_make_grid(indo50,cellsize = 0.25) %>% st_as_sf()
+w<-as.numeric(st_intersects(grid,indo50))
+grid025<-grid %>% filter(w>0) %>% st_as_sfc() %>% st_as_sf
+
+
+par(mfrow=c(2,2))
+
+mf_theme(bg="white",fg = "black",mar = c(0,0,0,0),inner = T,tab = T,pos="right")
+mf_map(grid200, type="base", border="gray50",col="black")
+mf_map(indo50, type="base",col=NA,border="white",add=T)
+mf_layout(title = "Indonesia - grid 2°",credits = "Source : Natural Earth",frame = T,scale = F,arrow=F)
+
+mf_theme(bg="white",fg = "black",mar = c(0,0,0,0),inner = T,tab = T,pos="right")
+mf_map(grid100, type="base", border="gray50",col="black")
+mf_map(indo50, type="base",col=NA,border="white",add=T)
+mf_layout(title = "Indonesia - grid 1°",credits = "Source : Natural Earth",frame = T,scale = F,arrow=F)
+
+mf_theme(bg="white",fg = "black",mar = c(0,0,0,0),inner = T,tab = T,pos="right")
+mf_map(grid050, type="base", border="gray50",col="black")
+mf_map(indo50, type="base",col=NA,border="white",add=T)
+mf_layout(title = "Indonesia - grid 0.5°",credits = "Source : Natural Earth",frame = T,scale = F,arrow=F)
+
+mf_theme(bg="white",fg = "black",mar = c(0,0,0,0),inner = T,tab = T,pos="right")
+mf_map(grid025, type="base", border="gray50",col="black")
+mf_map(indo50, type="base",col=NA,border="white",add=T)
+mf_layout(title = "Indonesia - grid 0.25°",credits = "Source : Natural Earth",frame = T,scale = F,arrow=F)
+
+
+pdf("fig/Indonesia_grid.pdf")
+par(mfrow=c(2,2))
+
+mf_theme(bg="white",fg = "black",mar = c(0,0,0,0),inner = T,tab = T,pos="right")
+mf_map(grid200, type="base", border="gray50",col="black")
+mf_map(indo50, type="base",col=NA,border="white",add=T)
+mf_layout(title = "Indonesia - grid 2°",credits = "Source : Natural Earth",frame = T,scale = F,arrow=F)
+
+mf_theme(bg="white",fg = "black",mar = c(0,0,0,0),inner = T,tab = T,pos="right")
+mf_map(grid100, type="base", border="gray50",col="black")
+mf_map(indo50, type="base",col=NA,border="white",add=T)
+mf_layout(title = "Indonesia - grid 1°",credits = "Source : Natural Earth",frame = T,scale = F,arrow=F)
+
+mf_theme(bg="white",fg = "black",mar = c(0,0,0,0),inner = T,tab = T,pos="right")
+mf_map(grid050, type="base", border="gray50",col="black")
+mf_map(indo50, type="base",col=NA,border="white",add=T)
+mf_layout(title = "Indonesia - grid 0.5°",credits = "Source : Natural Earth",frame = T,scale = F,arrow=F)
+
+mf_theme(bg="white",fg = "black",mar = c(0,0,0,0),inner = T,tab = T,pos="right")
+mf_map(grid025, type="base", border="gray50",col="black")
+mf_map(indo50, type="base",col=NA,border="white",add=T)
+mf_layout(title = "Indonesia - grid 0.25°",credits = "Source : Natural Earth",frame = T,scale = F,arrow=F)
+
+dev.off()
+
+```
+
+
+
+

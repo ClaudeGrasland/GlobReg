@@ -1,0 +1,109 @@
+---
+title: "GlobReg"
+author: "Claude Grasland"
+date: "01/10/2022"
+output:
+  pdf_document: default
+  html_document: default
+subtitle: A theory of regionalization applied to the dynamic of macroregions in contemporary
+  world
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# Introduction
+
+## Objectives
+
+The aim of this document is to discuss the theoretical and empirical objectives of the **GlobReg** project with the potential partners in order to apply in 2023 to the ERC Synergy grant.At time, the potential partners are :
+
+- Claude Grasland (cPI) , Université de Paris Cité (ou CNRS) (cHI)
+- Veit Bachmann (PI), Goethe Universität Frankfurt
+- Jean-Marc Vincent (PI), Université de Grenoble-Alpes
+- Sven Banish (PI), Karlsruhe Universität
+
+The project will not be submitted to ERC before autumn 2023 which allow one year to discuss and improve the proposal. But we have the opportunity to obtain a pre-funding of 30k€ by the french national research agency (ANR-MRSEI) in order to organize meetings or invite experts. The document of application for this pre-funding support is not very long (12 pages as a whole) but the deadline is relatively near (18 Octobre 2022) and it would be fine to have made some progress before to submit it. 
+
+
+## Provisional summary
+
+The central aim of the project is to elaborate a theoretical framework for the elaboration of dynamic models of regionalization of contemporary world. The aim is to reveal hidden structures that influence to some extent the interactions between individual and societies located in different places of our planet. We assume  that regions are changing according to the concept used for the definition of interactions (accessibility, similarity, flow,  …), to the scale of aggregation of initial units, to the time period and finally to the location and the cultural background of the observer.  Briefly said, the outbreaking nature of the project will be to demonstrate that regionalization are dynamic paths rather than permanent structures. 
+
+The theoretical perspective will propose a list of concepts that can be associated to measures of adequation of each possible partition, making possible the elaboration of algorithm of research of hidden partition that fulfil at best the criteria. The fact that “region” are cluster of neighboring (or at least nearby) spatial units limits the number of possible partition to be explore but it remains in any case very important and will deserve the mobilization of optimization procedure and parallel computing. Each concept will be therefore associated to a set of tools available in packages (for simple problem) or server (for large scale problems). 
+
+In an empirical perspective, the various concepts of regionalization and the related algorithm will be applied on a selection of data describing the contemporary world over a 50 years period, from the time of decolonization to presents. We will use more precisely datasets related to the distribution of area, population and wealth (morphological regions), trade (functional regions) and international news published by daily newspapers (perceived regions) and examine in each case the changing paths or regionalization revealed by the quantitative models of optimal division of the world in region.
+
+Finally in a perspective of critical but constructive political geography, we will analyze what are the current discourses on world regionalization in different countries, with a specific focus on European and Union and its different neighborhoods.  Against the naive idea that such world regions are forever existing (in the form of ‘continents’ or ‘civilizations’) our ultimate objective is to demonstrate the dynamic nature of world region.
+
+## Discussion
+
+What is certainly missing in the current project is to provide some example of combination of the theoretical and empirical perspective that could be addressed, thanks to the complementary of the skills of the four investigators. More precisely we can imagine two path of elaboration of the research questions : 
+
+1. **From empirical to theoretical problems** : We can start with a critical approach of the notion of "*Continents*" or "*Civilization*" based on research made in social science and humanities. Then we examine what are the implicit theoretical assumptions before these notions and build models of division of the world that could be based on clear concepts rather than vague notions.
+
+2. **From theoretical to empirical problems** : The reverse path could start from a theoretical approach of the concept of regions like the Wittgenstein Model (see below) which lead to the elaboration of abstract procedures of regionalization that could be applied to any type of "World" (admitting that we have conceptualized what a "World" is). And only in a final step we would discuss if such an application make sense when applied to "our contemporary World".
+
+In the following sections we will discuss both appraochs.
+
+# From empirical to theoretical questions
+
+## Isle, archipelo and continent
+
+We know that the division of the world in "Continent" is not based on natural division but on historical and cultural ones. But we can try to imagine what could be a division in continent made by an external observer without any pre-conceived idea about these historical and cultural dimension. Let's start with a minimum definition like the one find in Wikipedia
+
+> **Def.** : A continent is a large landmass
+
+To illustrate these idea of external observation, we consider the case of a world limited to the current state of Indonesia and we assume that our external observer has firstly produced two maps with different levels of scale resolution :
+
+
+```{r, fig.cap="Influence of spatial resolution"}
+knitr::include_graphics("fig/Indo_coast.pdf")
+```
+
+
+Looking at the map with scale resolution 1:150m, the number of "isles" is limited and it will be relatively easy to examine the distribution of size of the different isle and derive a threshold that define what are the continents. The problem is of course that the conclusion would probably be different if we had used a more precise scale resolution because in these case the number of "isles" would increased dramatically.
+
+Admitting that we have chosen the most precise resolution of 1:50m, we can introduce another parameter which is the proximity between "isles". We can indeed consider that nearby isles belong to the same continent as they defines an "archipelago". The question is now how to identify the different archipelago. One possible solution for that is to cover the map with a grid and to decide that all grid cells where at least one isle is present are considered as part of a "landmass". The number of landmass will now depend from the resolution of the grid used to cover the coastline :
+
+
+```{r, fig.cap="Influence of grid size",}
+knitr::include_graphics("fig/Indonesia_grid.pdf",)
+```
+
+Depending on the grid-size, there will be a single archipelago (for grid-size 1 or 2 degrees) or a set of archipelagi with different sizes. None of the choices of grid-sizes can be defined as better than another one as long as we do not introduce some supplementary rules in our model. We have for the moment a continuum of potential divisions of Indonesia in isles or archipelago. 
+
+
+# From theoretical to empirical questions
+
+L. Wittgenstein wrote in 1918 the *Tractatus Philosophico Logicus* a fascinating  set of short axioms or aphorism about the links between language and scientific knowledge. It is obvious that this document available [here](https://archive.org/stream/tractatuslogicop05740gut/tloph10.txt) is not deidcated to the geographical analysis of the division of the world. But the fact that Wittgenstein make an intensive use of spatial metaphors in the text is certainly not random and offers "food for thought" to the GlobReg project
+
+## *The world is all that is the case* ...
+
+>1 The world is all that is the case.  
+1.1 The world is the totality of facts, not of things.  
+1.11 The world is determined by the facts, and by their being all the
+facts.  
+1.12 For the totality of facts determines what is the case, and also
+whatever is not the case.  
+1.13 The facts in logical space are the world.  
+**Wittgenstein L.**, *Tractatus Philosophico-Logicus*
+
+
+What is the difference between a theory of **regionalization** and a theory of **classification** ? One possible answer based on Wittgenstein quotation could be to distinguish between *things* and *facts* and between *set* and *world*. The distinction could be something like : 
+
+- a **classification** is a method of partition of a *set (made of things)*.
+- a **regionalization** is a proposal of partition of a *world (made of facts)*.
+
+
+
+
+
+
+
+
+
+
+
+
